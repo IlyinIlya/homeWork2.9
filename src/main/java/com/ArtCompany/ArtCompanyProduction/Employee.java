@@ -1,13 +1,20 @@
+package com.ArtCompany.ArtCompanyProduction;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class Employee {
+    @JsonProperty("Имя")
     private final String employeeFirstName;
+    @JsonProperty("Фамилия")
     private final String employeeLastName;
+    @JsonProperty("Отчество")
     private final String employeeMiddleName;
+    @JsonProperty("Департамент ID")
     private int department;
+    @JsonProperty("Зарплата")
     private float employeeSalary;
-    private final int id;
-    private static int idCounter = 0;
 
     public Employee(int department, String employeeLastName, String employeeFirstName,
                     String employeeMiddleName, float employeeSalary) {
@@ -16,7 +23,6 @@ public class Employee {
         this.employeeFirstName = employeeFirstName;
         this.employeeMiddleName = employeeMiddleName;
         this.employeeSalary = employeeSalary;
-        id = ++idCounter;
     }
 
     // Геттеры
@@ -32,6 +38,7 @@ public class Employee {
         return this.employeeMiddleName;
     }
 
+    @JsonProperty("ФИО")
     public String getFullName() {
         return employeeLastName + " " + employeeFirstName + " " + employeeMiddleName;
     }
@@ -42,25 +49,6 @@ public class Employee {
 
     public float getEmployeeSalary() {
         return this.employeeSalary;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    // Сеттеры
-    public void setDepartment(int department) {
-        this.department = department;
-    }
-
-    public void setEmployeeSalary(float employeeSalary) {
-        this.employeeSalary = employeeSalary;
-    }
-
-    //String
-    public String toString() {
-        return "ID: " + id + " | Отдел: " + department + " | ФИО: "
-                + getFullName() + " | Зарплата: " + employeeSalary;
     }
 
     // Equals и hascode
