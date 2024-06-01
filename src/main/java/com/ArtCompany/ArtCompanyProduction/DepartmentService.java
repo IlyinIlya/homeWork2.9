@@ -50,9 +50,9 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    public List<Employee> printAllEmployee() {
+    public Map<Integer, List<Employee>> printAllEmployee() {
         return employees.stream()
-                .sorted(Comparator.comparingInt(Employee::getDepartmentId))
-                .collect(Collectors.toList());
+                //.sorted(Comparator.comparingInt(Employee::getDepartmentId))
+                .collect(Collectors.groupingBy(Employee::getDepartmentId));
     }
 }

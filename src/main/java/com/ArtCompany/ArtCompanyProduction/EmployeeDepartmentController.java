@@ -1,11 +1,11 @@
 package com.ArtCompany.ArtCompanyProduction;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/departments")
@@ -26,11 +26,13 @@ public class EmployeeDepartmentController {
         return departmentService.findMinSalary(departmentId);
     }
 
-    @RequestMapping(path = "/all")
+    @RequestMapping(path = "/all", params = "departmentId")
     public List<Employee> printEmployeeDepartment(@RequestParam(value = "departmentId", required = false) Integer departmentId) {
-        if (departmentId != null) {
-            return departmentService.printEmployee(departmentId);
-        }
+        return departmentService.printEmployee(departmentId);
+    }
+
+    @RequestMapping(path = "/all")
+    public Map<Integer, List<Employee>> printSortEmployeeDepartment() {
         return departmentService.printAllEmployee();
     }
 
