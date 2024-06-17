@@ -1,9 +1,12 @@
 package com.ArtCompany.ArtCompanyProduction;
 
+import Exceptions.WrongNamesException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class DepartmentService {
@@ -30,6 +33,15 @@ public class DepartmentService {
                     "Мария", "Максимовна", 33553.82f)
     ));
 
+    public Employee addNewEmployee(Employee employee) {
+        if (!checkNames(employee.getEmployeeLastName(),
+                employee.getEmployeeFirstName(),
+                employee.getEmployeeMiddleName()))
+            throw new WrongNamesException();
+        employees.add(employee);
+        return employee;
+    }
+
     public Employee findMaxSalary(int departmentId) {
         return employees.stream()
                 .filter(emp -> emp.getDepartmentId() == departmentId)
@@ -51,8 +63,14 @@ public class DepartmentService {
     }
 
     public Map<Integer, List<Employee>> printAllEmployee() {
+
         return employees.stream()
-                //.sorted(Comparator.comparingInt(Employee::getDepartmentId))
                 .collect(Collectors.groupingBy(Employee::getDepartmentId));
+    }
+
+    public boolean checkNames(String lastName, String firstName, String middleName) {
+        return StringUtils.isAlpha(lastName) &&
+                StringUtils.isAlpha(firstName) &&
+                StringUtils.isAlpha(middleName);
     }
 }

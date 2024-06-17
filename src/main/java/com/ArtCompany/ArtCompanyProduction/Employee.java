@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
+import static org.apache.tomcat.util.IntrospectionUtils.capitalize;
+
 public class Employee {
     @JsonProperty("Имя")
     private final String employeeFirstName;
@@ -19,9 +21,9 @@ public class Employee {
     public Employee(int department, String employeeLastName, String employeeFirstName,
                     String employeeMiddleName, float employeeSalary) {
         this.department = department;
-        this.employeeLastName = employeeLastName;
-        this.employeeFirstName = employeeFirstName;
-        this.employeeMiddleName = employeeMiddleName;
+        this.employeeLastName = capitalize(employeeLastName.toLowerCase());
+        this.employeeFirstName = capitalize(employeeFirstName.toLowerCase());
+        this.employeeMiddleName = capitalize(employeeMiddleName.toLowerCase());
         this.employeeSalary = employeeSalary;
     }
 
